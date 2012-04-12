@@ -9,6 +9,8 @@ define('_SITE_ROOT',$_SERVER['DOCUMENT_ROOT'].'/');
 
 $base = 'http://help.infusionsoft.com';
 $services_page = $base.'/developers/services-methods';
+
+/*
 writeMessage('Downloading '.$services_page);
 $page = file_get_contents($services_page);
 
@@ -126,6 +128,10 @@ foreach($services as $name=>$url){
 }
 
 writeServices($services_r);
+*/
+
+makeDbFiles();
+
 
 //print('<pre>');
 //print_r($services_r);
@@ -200,4 +206,137 @@ $content = ob_get_contents();
 ob_end_clean();
 		file_put_contents($fname, $content);
 	}
+}
+
+function makeDbFiles(){
+	//http://developers.infusionsoft.com/dbDocs/
+	$base = 'http://developers.infusionsoft.com';
+	$docs_page = $base.'/dbDocs/';
+	writeMessage('Downloading '.$docs_page);
+	$page = file_get_contents($docs_page);
+	
+	//<li><a href="Contact.html">Contact</a></li>
+	preg_match_all('#<li><a[^>]+href="([^"]+)"[^>]*>([^>]+)</a></li>#i',$page,$matches);
+	
+	$tables = associateMatches($matches,array());
+	$tables_r = array();
+	
+	foreach($tables as $name => $link){
+		$table = array('name' => $name,'fields' => array());
+		$url = $docs_page.$link;
+		writeMessage('Downloading '.$url);
+		$page = file_get_contents($url);
+		
+		preg_match_all('#<tr[^>]*>\s*<td>([^>]*)</td>\s*<td>([^>]*)</td>\s*<td>([^>]*)</td>\s*<td[^>]*>([^>]*)</td>\s*</tr>#i',$page,$matches);
+		
+		//print_r($matches);
+		foreach($matches[0] as $key=>$v){
+			$n = $matches[1][$key];
+			//$n = str_replace('.','',$n);
+			$table['fields'][] = array($n,$matches[2][$key],$matches[3][$key],$matches[4][$key]); 
+		}
+		//$methods = associateMatches($matches,array('API Basics','Usage Guidelines','Developer Forum'));
+		$tables_r[] = $table;
+		//break;
+	}
+	
+
+	writeTableClasses($tables_r);
+	//print '<pre>';
+	//print_r($tables_r);
+	//print '</pre>';
+	
+}
+
+function writeTableClasses($services){
+	writeMessage('write table classes');
+	$folder = _SITE_ROOT.'inc/class/isoft/db/';
+	
+	foreach($services as $service){
+		//odesk/cleverinvestor/svn/vipmastermindevent/html/inc/class/isoft/servise
+
+		//odesk/cleverinvestor/svn/vipmastermindevent/html/inc/class/isoft/service/APIAffiliate.class.ph
+		$fname = $folder.$service['name'].'.class.php';
+		writeMessage($fname);
+		ob_start();
+		print '<?'."\n";
+		?>
+/**
+ * InfusionSoft Object Oriented API
+ *
+ * see http://help.infusionsoft.com/developers/services-methods
+ * <?= $service['name'] ?>
+ 
+ */
+class isoft_db_<?= $service['name'] ?> {
+<?
+foreach($service['fields'] as $field){
+	
+	
+?>
+	/**
+	 * <?=$field[0] ?>
+	 
+	 */
+	const <?=makeupper($field[0]) ?> = '<?=$field[0] ?>';
+<?	
+}
+?>
+} 
+<?
+$content = ob_get_contents();
+ob_end_clean();
+		file_put_contents($fname, $content);
+	}
+}
+
+/**
+ * transforms camel style into upper case with inderstrokes
+ * 
+ * @param unknown_type $str
+ */
+function makeupper($str){
+	$str = str_replace('.','',$str);
+	$len = strlen($str);
+	$res = '';
+	$first = true;
+	
+	$exceptions = array(
+		'IPAddress'=>'IP_ADDRESS'
+	);
+	$prev_was_small = true; //first character suppse is alwaus small
+	if (isset($exceptions[$str])) return $exceptions[$str]; 
+	
+	
+	for($i=0;$i<$len;$i++){
+		if ($first){
+			$res = $res.strtoupper($str[$i]);
+			if (strtolower($str[$i])==$str[$i]){ //small letter or number
+			}
+			else {
+				$prev_was_small = false;
+			}
+		}
+		else {
+			if (strtolower($str[$i])==$str[$i]){ //small letter or number
+				$res = $res.strtoupper($str[$i]);
+				$prev_was_small = true;
+			}
+			else { //upper
+				if ($prev_was_small){
+					$res = $res.'_'.strtoupper($str[$i]);
+				}
+				else {
+					$res = $res.strtoupper($str[$i]);
+				}
+				$prev_was_small = false;
+			}
+			
+		}
+		$first = false;
+	}
+	if ($res=='PUBLIC'){
+		$res = 'IS_PUBLIC';
+	}
+	return $res;
 }
