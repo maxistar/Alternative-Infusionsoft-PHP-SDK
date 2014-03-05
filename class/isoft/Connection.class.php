@@ -49,7 +49,9 @@ class isoft_Connection {
 			return (int) $res[0]['Id'];
 		}
 		//else add contact
-		return $this->contactService()->add($data);
+		$contact_id = $this->contactService()->add($data);
+		$this->emailService()->optIn($data['Email'], 'First OpIn via API');
+		return $contact_id;
 	}
 	
 	/*

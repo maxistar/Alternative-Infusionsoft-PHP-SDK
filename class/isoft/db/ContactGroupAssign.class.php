@@ -241,7 +241,7 @@ class isoft_db_ContactGroupAssign {
 	/**
 	 * Contact.Id	 
 	 */
-	const CONTACT_ID = 'Contact.Id';
+	const CONTACT__ID = 'Contact.Id';
 	/**
 	 * Contact.JobTitle	 
 	 */
