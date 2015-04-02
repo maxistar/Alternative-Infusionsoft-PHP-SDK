@@ -1,0 +1,11 @@
+{
+  "name": "maxistar/infusionsoft-sdk",
+  "license": "GPL",
+  "type": "project",
+  "autoload": {
+    "psr-0": { "": "src/" }
+  },
+  "require": {
+    "php": ">=5.3.3"
+  }
+}
