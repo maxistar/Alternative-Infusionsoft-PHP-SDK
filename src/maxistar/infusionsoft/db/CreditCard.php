@@ -3,10 +3,12 @@
  * InfusionSoft Object Oriented API
  *
  * this class is parsed from CreditCard.html
- * Date: Thu, 02 Apr 2015 19:52:37 +0300
+ * Date: Thu, 02 Apr 2015 22:59:19 +0300
  * CreditCard Table
  */
-class isoft_db_CreditCard {
+namespace maxistar\infusionsoft\db;
+
+class CreditCard {
 
 	/**
 	 * Id	 

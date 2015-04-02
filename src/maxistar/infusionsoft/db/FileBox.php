@@ -3,10 +3,12 @@
  * InfusionSoft Object Oriented API
  *
  * this class is parsed from FileBox.html
- * Date: Thu, 02 Apr 2015 19:52:37 +0300
+ * Date: Thu, 02 Apr 2015 22:59:19 +0300
  * FileBox Table
  */
-class isoft_db_FileBox {
+namespace maxistar\infusionsoft\db;
+
+class FileBox {
 
 	/**
 	 * Id	 

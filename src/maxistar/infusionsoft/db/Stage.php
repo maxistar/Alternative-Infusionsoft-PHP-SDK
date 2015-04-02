@@ -3,10 +3,12 @@
  * InfusionSoft Object Oriented API
  *
  * this class is parsed from Stage.html
- * Date: Thu, 02 Apr 2015 19:52:37 +0300
+ * Date: Thu, 02 Apr 2015 22:59:19 +0300
  * Stage Table
  */
-class isoft_db_Stage {
+namespace maxistar\infusionsoft\db;
+
+class Stage {
 
 	/**
 	 * Id	 

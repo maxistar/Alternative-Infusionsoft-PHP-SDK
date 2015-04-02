@@ -3,10 +3,12 @@
  * InfusionSoft Object Oriented API
  *
  * this class is parsed from Status.html
- * Date: Thu, 02 Apr 2015 19:52:37 +0300
+ * Date: Thu, 02 Apr 2015 22:59:19 +0300
  * Status Table
  */
-class isoft_db_Status {
+namespace maxistar\infusionsoft\db;
+
+class Status {
 
 	/**
 	 * Id	 

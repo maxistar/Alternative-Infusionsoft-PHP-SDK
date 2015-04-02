@@ -80,32 +80,32 @@ class Connection {
 	
 	/**
 	 * returns contact service
-	 * @return isoft_service_Contact
+	 * @return maxistar\infusionsoft\service\Contact
 	 */
 	function contactService(){
 		if ($this->contact_service===false){
-			$this->contact_service = new isoft_service_Contact($this);
+			$this->contact_service = new service\Contact($this);
 		}
 		return $this->contact_service;
 	}
 
 	/**
 	* returns invoice service
-	* @return isoft_service_Invoice
+	* @return maxistar\infusionsoft\service\Invoice
 	*/
 	function invoiceService(){
 		if ($this->invoice_service===false){
-			$this->invoice_service = new isoft_service_Invoice($this);
+			$this->invoice_service = new service\Invoice($this);
 		}
 		return $this->invoice_service;
 	}
 	
 	/**
-	* @return isoft_service_Data
+	* @return maxistar\infusionsoft\service\Data
 	*/
 	function dataService(){
 		if ($this->data_service===false){
-			$this->data_service = new isoft_service_Data($this);
+			$this->data_service = new service\Data($this);
 		}
 		return $this->data_service;
 	}	

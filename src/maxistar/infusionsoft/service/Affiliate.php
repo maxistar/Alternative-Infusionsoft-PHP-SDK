@@ -3,11 +3,12 @@
  * InfusionSoft Object Oriented API
  *
  * this class is parsed from https://developer.infusionsoft.com/docs/read/Affiliate_Service
- * Date: Thu, 02 Apr 2015 19:52:00 +0300
+ * Date: Thu, 02 Apr 2015 22:58:41 +0300
  * AffiliateService
  
  */
-class isoft_service_Affiliate extends isoft_Service {
+namespace maxistar\infusionsoft\service;
+class Affiliate extends \maxistar\infusionsoft\Service {
 
     /**
      * affClawbacks

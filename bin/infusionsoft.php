@@ -112,7 +112,7 @@ function writeWarningMessage($msg){
 	
 function writeServices($services){
 	writeMessage('write files');
-	$folder = _SITE_ROOT.'src/infusionsoft/service/';
+	$folder = _SITE_ROOT.'src/maxistar/infusionsoft/service/';
 	foreach($services as $service){
 		//odesk/cleverinvestor/svn/vipmastermindevent/html/inc/class/isoft/servise
 		
@@ -132,7 +132,8 @@ print '<?'."php"."\n";
  * <?= $service['fname'] ?>Service
  
  */
-class isoft_service_<?= $service['fname'] ?> extends isoft_Service {
+namespace maxistar\infusionsoft\service;
+class <?= $service['fname'] ?> extends \maxistar\infusionsoft\Service {
 <?
 foreach($service['methods'] as $method){
 	$arguments = $method['arguments'];
@@ -208,7 +209,7 @@ function makeDbFiles(){
 
 function writeTableClasses($services){
 	writeMessage('write table classes');
-	$folder = _SITE_ROOT.'src/infusionsoft/db/';
+	$folder = _SITE_ROOT.'src/maxistar/infusionsoft/db/';
 	
 	foreach($services as $service){
 		//odesk/cleverinvestor/svn/vipmastermindevent/html/inc/class/isoft/servise
@@ -228,7 +229,9 @@ function writeTableClasses($services){
 
  * <?= $service['name'] ?> Table
  */
-class isoft_db_<?= $service['name'] ?> {
+namespace maxistar\infusionsoft\db;
+
+class <?= $service['name'] ?> {
 <?
 foreach($service['fields'] as $field){
 ?>

@@ -3,10 +3,12 @@
  * InfusionSoft Object Oriented API
  *
  * this class is parsed from Job.html
- * Date: Thu, 02 Apr 2015 19:52:37 +0300
+ * Date: Thu, 02 Apr 2015 22:59:19 +0300
  * Job Table
  */
-class isoft_db_Job {
+namespace maxistar\infusionsoft\db;
+
+class Job {
 
 	/**
 	 * Id	 

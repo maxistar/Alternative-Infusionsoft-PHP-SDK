@@ -3,10 +3,12 @@
  * InfusionSoft Object Oriented API
  *
  * this class is parsed from AffResource.html
- * Date: Thu, 02 Apr 2015 19:52:37 +0300
+ * Date: Thu, 02 Apr 2015 22:59:19 +0300
  * AffResource Table
  */
-class isoft_db_AffResource {
+namespace maxistar\infusionsoft\db;
+
+class AffResource {
 
 	/**
 	 * Id	 

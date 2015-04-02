@@ -3,11 +3,12 @@
  * InfusionSoft Object Oriented API
  *
  * this class is parsed from https://developer.infusionsoft.com/docs/read/Email_Service
- * Date: Thu, 02 Apr 2015 19:52:00 +0300
+ * Date: Thu, 02 Apr 2015 22:58:41 +0300
  * EmailService
  
  */
-class isoft_service_Email extends isoft_Service {
+namespace maxistar\infusionsoft\service;
+class Email extends \maxistar\infusionsoft\Service {
 
     /**
      * attachEmail
