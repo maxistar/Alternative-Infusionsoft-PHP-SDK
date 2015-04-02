@@ -3,7 +3,7 @@ error_reporting(-1);
 //generate infusion soft api classes
 //generate
 //include 'inc/site.php';
-define('_SITE_ROOT',__DIR__.'/');
+define('_SITE_ROOT',dirname(__DIR__).'/');
 
 function makeServices(){
 
@@ -112,7 +112,7 @@ function writeWarningMessage($msg){
 	
 function writeServices($services){
 	writeMessage('write files');
-	$folder = _SITE_ROOT.'class/isoft/service/';
+	$folder = _SITE_ROOT.'src/infusionsoft/service/';
 	foreach($services as $service){
 		//odesk/cleverinvestor/svn/vipmastermindevent/html/inc/class/isoft/servise
 		
@@ -208,7 +208,7 @@ function makeDbFiles(){
 
 function writeTableClasses($services){
 	writeMessage('write table classes');
-	$folder = _SITE_ROOT.'class/isoft/db/';
+	$folder = _SITE_ROOT.'src/infusionsoft/db/';
 	
 	foreach($services as $service){
 		//odesk/cleverinvestor/svn/vipmastermindevent/html/inc/class/isoft/servise
