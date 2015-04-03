@@ -3,73 +3,119 @@
  * InfusionSoft Object Oriented API
  *
  * this class is parsed from https://developer.infusionsoft.com/docs/read/Shipping_Service
- * Date: Fri, 03 Apr 2015 09:15:16 +0300
  * ShippingService
- 
  */
 namespace maxistar\infusionsoft\service;
 class Shipping extends \maxistar\infusionsoft\Service {
 
     /**
-     * getAllShippingOptions
+     * ShippingService.getAllShippingOptions
+	 *
+	 * Returns all shipping options configured
+     *
+	 * @returns Returns all shipping options configured
 	 */
 	function getAllShippingOptions(){
-	    return $this->owner->call('ShippingService.getAllShippingOptions');
+	    $args = array();
+
+	    return $this->owner->call('ShippingService.getAllShippingOptions', $args);
 	}
 
     /**
-     * getFlatRateShippingOption
+     * ShippingService.getFlatRateShippingOption
+	 *
+	 * Returns the options and values of the flat rate shipping option provided
+     *
      * @param int optionId The Id for the shipping option
+	 * @returns Returns the options and values of the flat rate shipping option provided
 	 */
 	function getFlatRateShippingOption($optionId){
-	    return $this->owner->call('ShippingService.getFlatRateShippingOption', $optionId);
+	    $args = array($optionId);
+
+	    return $this->owner->call('ShippingService.getFlatRateShippingOption', $args);
 	}
 
     /**
-     * getOrderTotalShippingOption
+     * ShippingService.getOrderTotalShippingOption
+	 *
+	 * Returns the options and values of the order total shipping option provided
+     *
      * @param int optionId The Id for the shipping option
+	 * @returns Returns the options and values of the order total shipping option provided
 	 */
 	function getOrderTotalShippingOption($optionId){
-	    return $this->owner->call('ShippingService.getOrderTotalShippingOption', $optionId);
+	    $args = array($optionId);
+
+	    return $this->owner->call('ShippingService.getOrderTotalShippingOption', $args);
 	}
 
     /**
-     * getOrderTotalShippingRanges
+     * ShippingService.getOrderTotalShippingRanges
+	 *
+	 * Returns the options and values of the order total shipping ranges option provided
+     *
      * @param int optionId The Id for the shipping option
+	 * @returns Returns the options and values of the order total shipping ranges option provided
 	 */
 	function getOrderTotalShippingRanges($optionId){
-	    return $this->owner->call('ShippingService.getOrderTotalShippingRanges', $optionId);
+	    $args = array($optionId);
+
+	    return $this->owner->call('ShippingService.getOrderTotalShippingRanges', $args);
 	}
 
     /**
-     * getProductBasedShippingOption
+     * ShippingService.getProductBasedShippingOption
+	 *
+	 * Returns the options and values of the product based shipping option provided
+     *
      * @param int optionId The Id for the shipping option
+	 * @returns Returns the options and values of the product based shipping option provided
 	 */
 	function getProductBasedShippingOption($optionId){
-	    return $this->owner->call('ShippingService.getProductBasedShippingOption', $optionId);
+	    $args = array($optionId);
+
+	    return $this->owner->call('ShippingService.getProductBasedShippingOption', $args);
 	}
 
     /**
-     * getOrderQuantityShippingOption
+     * ShippingService.getOrderQuantityShippingOption
+	 *
+	 * Returns the options and values of the order quantity shipping option provided
+     *
      * @param int optionId The Id for the shipping option
+	 * @returns Returns the options and values of the order quantity shipping option provided
 	 */
 	function getOrderQuantityShippingOption($optionId){
-	    return $this->owner->call('ShippingService.getOrderQuantityShippingOption', $optionId);
+	    $args = array($optionId);
+
+	    return $this->owner->call('ShippingService.getOrderQuantityShippingOption', $args);
 	}
 
     /**
-     * getWeightBasedShippingOption
+     * ShippingService.getWeightBasedShippingOption
+	 *
+	 * Returns the options and values of the weight based shipping option provided
+     *
      * @param int optionId The Id for the shipping option
+	 * @returns Returns the options and values of the weight based shipping option provided
 	 */
 	function getWeightBasedShippingOption($optionId){
-	    return $this->owner->call('ShippingService.getWeightBasedShippingOption', $optionId);
+	    $args = array($optionId);
+
+	    return $this->owner->call('ShippingService.getWeightBasedShippingOption', $args);
 	}
 
     /**
-     * getUpsShippingOption
+     * ShippingService.getUpsShippingOption
+	 *
+	 * Returns the options and values of the ups shipping option provided
+     *
      * @param int optionId The Id for the shipping option
+	 * @returns Returns the options and values of the ups shipping option provided
 	 */
 	function getUpsShippingOption($optionId){
-	    return $this->owner->call('ShippingService.getUpsShippingOption', $optionId);
+	    $args = array($optionId);
+
+	    return $this->owner->call('ShippingService.getUpsShippingOption', $args);
 	}
 } 

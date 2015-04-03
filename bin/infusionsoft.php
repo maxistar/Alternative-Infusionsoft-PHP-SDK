@@ -43,7 +43,7 @@ function makeServices(){
 
 makeServices();
 
-makeDbFiles();
+//makeDbFiles();
 
 function parseServiceMethods($page, $serviceName) {
 	$res = array();
@@ -58,24 +58,69 @@ function parseServiceMethods($page, $serviceName) {
 		if (isset($methodsFound[$functionName])) continue;
 		$methodsFound[$functionName] = true;
 		$arguments = array();
-		$cutOffPage = substr($page,strpos($page,$vars[0][$key]));
+		$optionalArguments = array();
+		$cutOffPage = $dataSection =  substr($page,strpos($page,$vars[0][$key]));
+
+		$dataSection = substr($dataSection,0,strpos($dataSection,'<h3>Sample Request</h3>'));
+
 		$cutOffPage = substr($cutOffPage,0,strpos($cutOffPage,'</table>'));
 		$matches1 = preg_match_all("#<tr>\s+<td>([^<]+)</td>\s+<td>([^<]+)</td>\s+<td>([^<]+)</td>\s+</tr>#", $cutOffPage, $vars2);
 		if (!$matches1){
 			writeErrorMessage('no arguments found for '.$functionName.'!');
 		}
 		foreach($vars2[0] as $key => $v) {
-			$arguments[] = array(
-				'name'=>trim(str_replace(' ','',$vars2[1][$key])),
-				'type'=>trim($vars2[2][$key]),
-				'comment'=>trim($vars2[3][$key]),
-			);
+			$pname = trim(str_replace(' ','',$vars2[1][$key]));
+			if (strpos($pname,'(optional)')===false) {
+				$arguments[] = array(
+					'name' => $pname,
+					'type' => trim($vars2[2][$key]),
+					'comment' => trim($vars2[3][$key]),
+				);
+			}
+			else {
+				$optionalArguments[] = array(
+					'name' => substr($pname, 0, -10),
+					'type' => trim($vars2[2][$key]),
+					'comment' => trim($vars2[3][$key]),
+				);
+			}
 		}
 
-		$res[] = array('name' => $functionName,'iname' => $functionName, 'arguments' => $arguments);
+		//look for extra optional parameters:
+        if (strpos($dataSection,'<h3>Optional Parameters</h3>') !== false) {
+			$optionalSection = substr($dataSection, strpos($dataSection, '<h3>Optional Parameters</h3>'));
+			$optionalSection = substr($optionalSection, 0, strpos($optionalSection, '</table>'));
+			preg_match_all("#<tr>\s+<td>([^<]+)</td>\s+<td>([^<]+)</td>\s+<td>([^<]+)</td>\s+</tr>#", $optionalSection, $vars3);
+			foreach ($vars3[0] as $key => $v) {
+				$pname = trim(str_replace(' ', '', $vars3[1][$key]));
+				$optionalArguments[] = array(
+					'name' => $pname,
+					'type' => trim($vars3[2][$key]),
+					'comment' => trim($vars3[3][$key]),
+				);
+			}
+		}
+
+		//look for returns:
+		$returnsSection = substr($dataSection, strpos($dataSection, '<h3>Returns</h3>'));
+		$returnsSection = substr($returnsSection, 0, strpos($returnsSection, '</p>'));
+		$returnsSection = substr($returnsSection, strpos($returnsSection, '<p>')+3);
+		$returnsSection = str_replace('Return: ','',$returnsSection);
+
+		//look for description:
+		$descriptionSection = substr($dataSection, strpos($dataSection, '<p>')+3);
+		$descriptionSection = substr($descriptionSection, 0, strpos($descriptionSection, '</p>'));
+
+
+		$res[] = array(
+			'name' => $functionName,
+			'iname' => $functionName,
+			'arguments' => $arguments,
+			'optionalArguments' => $optionalArguments,
+			'returns' => $returnsSection,
+			'description' => $descriptionSection);
 	}
 	return $res;
-//	print_r($vars);
 }
 
 
@@ -128,7 +173,6 @@ print '<?'."php"."\n";
  * this class is parsed from <?= $service['url'] ?>
 
  * <?= $service['fname'] ?>Service
- 
  */
 namespace maxistar\infusionsoft\service;
 class <?= $service['fname'] ?> extends \maxistar\infusionsoft\Service {
@@ -138,21 +182,46 @@ foreach($service['methods'] as $method){
 	array_shift($arguments);
 	$names = array();
 	$args = '';
+	$vars = array();
 	foreach($arguments as $a){
 		$args .= '     * @param '.$a['type'].' '.$a['name'].' '.$a['comment']."\n";
 		$names[] = '$'.$a['name'];
+		$vars[] = '$'.$a['name'];
 	}
+	$optionalArgs = '';
+
+	$optionalArguments = $method['optionalArguments'];
+	foreach($optionalArguments as $a){
+		$args .= '     * @param optional '.$a['type'].' '.$a['name'].' '.$a['comment']."\n";
+		$names[] = '$'.$a['name'].' = null';
+
+		$optionalArgs .= '
+		if ($' . $a['name'] . ' !== null) {
+			$args[] = $' . $a['name'] . ';
+		}
+		';
+	}
+
 ?>
 
     /**
-     * <?=$method['name'] ?>
+     * <?= $service['fname'] ?>Service.<?= $method['iname'] ?>
 
+	 *
+	 * <?= $method['description'] ?>
+
+     *
 <?=
 $args
 ?>
+	 * @returns <?= $method['returns'] ?>
+
 	 */
 	function <?=$method['name'] ?>(<?= implode(', ',$names) ?>){
-	    return $this->owner->call('<?= $service['fname'] ?>Service.<?= $method['iname'] ?>'<?= count($names)?', '.implode(', ',$names):'' ?>);
+	    $args = array(<?= implode(', ',$vars) ?>);
+<?= $optionalArgs ?>
+
+	    return $this->owner->call('<?= $service['fname'] ?>Service.<?= $method['iname'] ?>', $args);
 	}
 <?	
 }
@@ -199,10 +268,7 @@ function makeDbFiles(){
 	
 
 	writeTableClasses($tables_r);
-	//print '<pre>';
-	//print_r($tables_r);
-	//print '</pre>';
-	
+
 }
 
 function writeTableClasses($services){

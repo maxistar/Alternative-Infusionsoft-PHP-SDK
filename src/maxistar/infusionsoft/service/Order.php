@@ -3,15 +3,17 @@
  * InfusionSoft Object Oriented API
  *
  * this class is parsed from https://developer.infusionsoft.com/docs/read/Order_Service
- * Date: Fri, 03 Apr 2015 09:15:16 +0300
  * OrderService
- 
  */
 namespace maxistar\infusionsoft\service;
 class Order extends \maxistar\infusionsoft\Service {
 
     /**
-     * placeOrder
+     * OrderService.placeOrder
+	 *
+	 * Returns the result of order placement. The ids of the order and invoice that were created are returned along
+        with the status of a credit card charge if one was made.
+     *
      * @param int contactId The id of the contact to place on the order
      * @param int creditCardId The id of the credit card to charge, leave it at zero to indicate no credit card.
      * @param int payPlanId The id of the payment plan to use in building the order. If no pay plan is specified then the
@@ -25,8 +27,12 @@ class Order extends \maxistar\infusionsoft\Service {
      * @param List&lt;String&gt; promoCodes Any promo codes to add to the cart, only used if processing of specials is turned on.
      * @param int leadAffiliateId Optional int ID of the lead affiliate
      * @param int saleAffiliateId Optional int ID of the sale affiliate
+	 * @returns Returns the result of order placement. The ids of the order and invoice that were created are returned along
+        with the status of a credit card charge if one was made.
 	 */
 	function placeOrder($contactId, $creditCardId, $payPlanId, $productIds, $subscriptionPlanIds, $processSpecials, $promoCodes, $leadAffiliateId, $saleAffiliateId){
-	    return $this->owner->call('OrderService.placeOrder', $contactId, $creditCardId, $payPlanId, $productIds, $subscriptionPlanIds, $processSpecials, $promoCodes, $leadAffiliateId, $saleAffiliateId);
+	    $args = array($contactId, $creditCardId, $payPlanId, $productIds, $subscriptionPlanIds, $processSpecials, $promoCodes, $leadAffiliateId, $saleAffiliateId);
+
+	    return $this->owner->call('OrderService.placeOrder', $args);
 	}
 } 

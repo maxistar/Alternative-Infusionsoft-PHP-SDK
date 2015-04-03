@@ -3,7 +3,6 @@
  * InfusionSoft Object Oriented API
  *
  * this class is parsed from DataFormField.html
- * Date: Fri, 03 Apr 2015 09:16:34 +0300
  * DataFormField Table
  */
 namespace maxistar\infusionsoft\db;

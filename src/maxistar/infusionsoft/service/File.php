@@ -3,54 +3,88 @@
  * InfusionSoft Object Oriented API
  *
  * this class is parsed from https://developer.infusionsoft.com/docs/read/File_Service
- * Date: Fri, 03 Apr 2015 09:15:16 +0300
  * FileService
- 
  */
 namespace maxistar\infusionsoft\service;
 class File extends \maxistar\infusionsoft\Service {
 
     /**
-     * getFile
+     * FileService.getFile
+	 *
+	 * This method retrieves the file data for the given ID number.
+     *
      * @param int FileId The ID of the file you would like to return.
+	 * @returns This method retrieves the file data for the given ID number.
 	 */
 	function getFile($FileId){
-	    return $this->owner->call('FileService.getFile', $FileId);
+	    $args = array($FileId);
+
+	    return $this->owner->call('FileService.getFile', $args);
 	}
 
     /**
-     * getDownloadUrl
+     * FileService.getDownloadUrl
+	 *
+	 * This method will return a string of the download URL for the given file.
+     *
      * @param int FileId The ID of the file url to be returned.
+	 * @returns This method will return a string of the download URL for the given file.
 	 */
 	function getDownloadUrl($FileId){
-	    return $this->owner->call('FileService.getDownloadUrl', $FileId);
+	    $args = array($FileId);
+
+	    return $this->owner->call('FileService.getDownloadUrl', $args);
 	}
 
     /**
-     * uploadFile
+     * FileService.uploadFile
+	 *
+	 * This method uploads the file to Infusionsoft. The optional contactId parameter is used to place the file in a
+    specific contact's filebox.
+     *
      * @param string FileName The name of the file to be uploaded
      * @param string Base64EncodedData A string that is 64 base encoded.
-     * @param int ContactId(optional) ID of the contact record to add the file to.
+     * @param optional int ContactId ID of the contact record to add the file to.
+	 * @returns This method uploads the file to Infusionsoft. The optional contactId parameter is used to place the file in a
+    specific contact's filebox.
 	 */
-	function uploadFile($FileName, $Base64EncodedData, $ContactId(optional)){
-	    return $this->owner->call('FileService.uploadFile', $FileName, $Base64EncodedData, $ContactId(optional));
+	function uploadFile($FileName, $Base64EncodedData, $ContactId = null){
+	    $args = array($FileName, $Base64EncodedData);
+
+		if ($ContactId !== null) {
+			$args[] = $ContactId;
+		}
+		
+	    return $this->owner->call('FileService.uploadFile', $args);
 	}
 
     /**
-     * replaceFile
+     * FileService.replaceFile
+	 *
+	 * This method will return a string of the download URL for the given file.
+     *
      * @param int FileId ID of the file to be replaced.
      * @param string Base64EncodedData New string of data.
+	 * @returns This method will return a string of the download URL for the given file.
 	 */
 	function replaceFile($FileId, $Base64EncodedData){
-	    return $this->owner->call('FileService.replaceFile', $FileId, $Base64EncodedData);
+	    $args = array($FileId, $Base64EncodedData);
+
+	    return $this->owner->call('FileService.replaceFile', $args);
 	}
 
     /**
-     * renameFile
+     * FileService.renameFile
+	 *
+	 * This method will return a string of the download URL for the given file.
+     *
      * @param int FileId Id of the file to be renamed.
      * @param string fileName New string of data.
+	 * @returns This method will return a string of the download URL for the given file.
 	 */
 	function renameFile($FileId, $fileName){
-	    return $this->owner->call('FileService.renameFile', $FileId, $fileName);
+	    $args = array($FileId, $fileName);
+
+	    return $this->owner->call('FileService.renameFile', $args);
 	}
 } 

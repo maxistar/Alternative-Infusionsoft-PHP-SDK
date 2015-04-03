@@ -3,33 +3,49 @@
  * InfusionSoft Object Oriented API
  *
  * this class is parsed from https://developer.infusionsoft.com/docs/read/Affiliate_Program_Service
- * Date: Fri, 03 Apr 2015 09:15:16 +0300
  * AffiliateProgramService
- 
  */
 namespace maxistar\infusionsoft\service;
 class AffiliateProgram extends \maxistar\infusionsoft\Service {
 
     /**
-     * getAffiliatesByProgram
+     * AffiliateProgramService.getAffiliatesByProgram
+	 *
+	 * 
+     *
      * @param int programId The Referral Partner Commission Program Id
+	 * @returns 
 	 */
 	function getAffiliatesByProgram($programId){
-	    return $this->owner->call('AffiliateProgramService.getAffiliatesByProgram', $programId);
+	    $args = array($programId);
+
+	    return $this->owner->call('AffiliateProgramService.getAffiliatesByProgram', $args);
 	}
 
     /**
-     * getProgramsForAffiliate
+     * AffiliateProgramService.getProgramsForAffiliate
+	 *
+	 * 
+     *
      * @param int affiliateId The affiliate you want to get the programs for
+	 * @returns 
 	 */
 	function getProgramsForAffiliate($affiliateId){
-	    return $this->owner->call('AffiliateProgramService.getProgramsForAffiliate', $affiliateId);
+	    $args = array($affiliateId);
+
+	    return $this->owner->call('AffiliateProgramService.getProgramsForAffiliate', $args);
 	}
 
     /**
-     * getAffiliatePrograms
+     * AffiliateProgramService.getAffiliatePrograms
+	 *
+	 * 
+     *
+	 * @returns 
 	 */
 	function getAffiliatePrograms(){
-	    return $this->owner->call('AffiliateProgramService.getAffiliatePrograms');
+	    $args = array();
+
+	    return $this->owner->call('AffiliateProgramService.getAffiliatePrograms', $args);
 	}
 } 

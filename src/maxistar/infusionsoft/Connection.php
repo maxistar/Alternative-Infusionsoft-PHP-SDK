@@ -116,9 +116,7 @@ class Connection {
 	 *
 	 *
 	 */
-	function call($function_name){
-		$args = func_get_args();
-		$function_name = array_shift($args);
+	function call($function_name, $args){
 		array_unshift($args, $this->key);
 		$request = xmlrpc_encode_request($function_name, $args);
 		$context = stream_context_create(array('http' => array(
