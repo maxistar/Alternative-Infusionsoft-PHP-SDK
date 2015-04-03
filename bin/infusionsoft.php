@@ -127,8 +127,6 @@ print '<?'."php"."\n";
  *
  * this class is parsed from <?= $service['url'] ?>
 
- * Date: <?=date('r')?>
-
  * <?= $service['fname'] ?>Service
  
  */
@@ -225,13 +223,15 @@ function writeTableClasses($services){
  *
  * this class is parsed from <?= $service['url'] ?>
 
- * Date: <?=date('r')?>
-
  * <?= $service['name'] ?> Table
  */
 namespace maxistar\infusionsoft\db;
 
 class <?= $service['name'] ?> {
+    /**
+     * Table name
+     */
+	const TABLE_NAME = '<?= $service['name'] ?>';
 <?
 foreach($service['fields'] as $field){
 ?>

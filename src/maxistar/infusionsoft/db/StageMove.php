@@ -3,12 +3,16 @@
  * InfusionSoft Object Oriented API
  *
  * this class is parsed from StageMove.html
- * Date: Thu, 02 Apr 2015 22:59:19 +0300
+ * Date: Fri, 03 Apr 2015 09:16:34 +0300
  * StageMove Table
  */
 namespace maxistar\infusionsoft\db;
 
 class StageMove {
+    /**
+     * Table name
+     */
+	const TABLE_NAME = 'StageMove';
 
 	/**
 	 * Id	 

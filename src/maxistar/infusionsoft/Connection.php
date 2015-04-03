@@ -80,7 +80,7 @@ class Connection {
 	
 	/**
 	 * returns contact service
-	 * @return maxistar\infusionsoft\service\Contact
+	 * @return \maxistar\infusionsoft\service\Contact
 	 */
 	function contactService(){
 		if ($this->contact_service===false){
@@ -91,7 +91,7 @@ class Connection {
 
 	/**
 	* returns invoice service
-	* @return maxistar\infusionsoft\service\Invoice
+	* @return \maxistar\infusionsoft\service\Invoice
 	*/
 	function invoiceService(){
 		if ($this->invoice_service===false){
@@ -101,7 +101,7 @@ class Connection {
 	}
 	
 	/**
-	* @return maxistar\infusionsoft\service\Data
+	* @return \maxistar\infusionsoft\service\Data
 	*/
 	function dataService(){
 		if ($this->data_service===false){

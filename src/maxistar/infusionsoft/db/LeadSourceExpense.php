@@ -3,12 +3,16 @@
  * InfusionSoft Object Oriented API
  *
  * this class is parsed from LeadSourceExpense.html
- * Date: Thu, 02 Apr 2015 22:59:19 +0300
+ * Date: Fri, 03 Apr 2015 09:16:34 +0300
  * LeadSourceExpense Table
  */
 namespace maxistar\infusionsoft\db;
 
 class LeadSourceExpense {
+    /**
+     * Table name
+     */
+	const TABLE_NAME = 'LeadSourceExpense';
 
 	/**
 	 * Id	 

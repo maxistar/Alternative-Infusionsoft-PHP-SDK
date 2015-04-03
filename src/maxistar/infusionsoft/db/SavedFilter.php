@@ -3,12 +3,16 @@
  * InfusionSoft Object Oriented API
  *
  * this class is parsed from SavedFilter.html
- * Date: Thu, 02 Apr 2015 22:59:19 +0300
+ * Date: Fri, 03 Apr 2015 09:16:34 +0300
  * SavedFilter Table
  */
 namespace maxistar\infusionsoft\db;
 
 class SavedFilter {
+    /**
+     * Table name
+     */
+	const TABLE_NAME = 'SavedFilter';
 
 	/**
 	 * Id	 
